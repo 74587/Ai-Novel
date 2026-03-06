@@ -5,7 +5,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
 
-from app.schemas.limits import MAX_JSON_CHARS_MEDIUM, MAX_MD_CHARS, validate_json_chars
+from app.schemas.limits import MAX_OUTLINE_MD_CHARS, MAX_OUTLINE_STRUCTURE_JSON_CHARS, validate_json_chars
 
 
 class OutlineOut(BaseModel):
@@ -20,24 +20,24 @@ class OutlineOut(BaseModel):
 
 class OutlineUpdate(BaseModel):
     title: str | None = Field(default=None, min_length=1, max_length=255)
-    content_md: str | None = Field(default=None, max_length=MAX_MD_CHARS)
+    content_md: str | None = Field(default=None, max_length=MAX_OUTLINE_MD_CHARS)
     structure: Any | None = None
 
     @field_validator("structure")
     @classmethod
     def _validate_structure(cls, v: Any | None) -> Any | None:
-        return validate_json_chars(v, max_chars=MAX_JSON_CHARS_MEDIUM, field_name="structure")
+        return validate_json_chars(v, max_chars=MAX_OUTLINE_STRUCTURE_JSON_CHARS, field_name="structure")
 
 
 class OutlineCreate(BaseModel):
     title: str = Field(min_length=1, max_length=255)
-    content_md: str | None = Field(default=None, max_length=MAX_MD_CHARS)
+    content_md: str | None = Field(default=None, max_length=MAX_OUTLINE_MD_CHARS)
     structure: Any | None = None
 
     @field_validator("structure")
     @classmethod
     def _validate_structure(cls, v: Any | None) -> Any | None:
-        return validate_json_chars(v, max_chars=MAX_JSON_CHARS_MEDIUM, field_name="structure")
+        return validate_json_chars(v, max_chars=MAX_OUTLINE_STRUCTURE_JSON_CHARS, field_name="structure")
 
 
 class OutlineListItem(BaseModel):
