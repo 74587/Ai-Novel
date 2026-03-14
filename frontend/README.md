@@ -71,3 +71,8 @@ export default defineConfig([
   },
 ]);
 ```
+
+## License
+
+This frontend code is part of the ainovel repository and is licensed under the MIT License.
+See [../LICENSE](../LICENSE).
